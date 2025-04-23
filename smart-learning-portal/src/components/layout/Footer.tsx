@@ -30,17 +30,17 @@ export const Footer = () => {
               </li>
               <li>
                 <Link to="/courses?category=web" className="hover:text-learn-primary transition-colors">
-                  Web Development
+                  Website Development
                 </Link>
               </li>
               <li>
                 <Link to="/courses?category=data" className="hover:text-learn-primary transition-colors">
-                  Data Science
+                  Application Development
                 </Link>
               </li>
               <li>
                 <Link to="/courses?category=mobile" className="hover:text-learn-primary transition-colors">
-                  Mobile Development
+                Artificial Intelligence
                 </Link>
               </li>
             </ul>
