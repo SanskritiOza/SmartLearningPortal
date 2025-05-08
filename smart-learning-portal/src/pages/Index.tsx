@@ -1,8 +1,8 @@
-
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
+import { StudyBotChat } from "@/components/chat/StudyBotChat";
 
 const Index = () => {
   return (
@@ -37,37 +37,45 @@ const Index = () => {
       {/* Features Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose SmartLearn?</h2>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <div className="h-12 w-12 bg-learn-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <Check className="h-6 w-6 text-learn-primary" />
+          <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div>
+              <h2 className="text-3xl font-bold mb-12">Why Choose SmartLearn?</h2>
+              <div className="grid gap-8">
+                <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                  <div className="h-12 w-12 bg-learn-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Check className="h-6 w-6 text-learn-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Personalized Learning</h3>
+                  <p className="text-gray-600">
+                    AI-powered recommendations to match your learning style and goals.
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                  <div className="h-12 w-12 bg-learn-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Check className="h-6 w-6 text-learn-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Expert Instructors</h3>
+                  <p className="text-gray-600">
+                    Learn from industry professionals with real-world experience.
+                  </p>
+                </div>
+                
+                <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
+                  <div className="h-12 w-12 bg-learn-primary/10 rounded-lg flex items-center justify-center mb-4">
+                    <Check className="h-6 w-6 text-learn-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">Interactive Content</h3>
+                  <p className="text-gray-600">
+                    Engage with multimedia lessons, quizzes, and discussions.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Personalized Learning</h3>
-              <p className="text-gray-600">
-                AI-powered recommendations to match your learning style and goals.
-              </p>
             </div>
-            
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <div className="h-12 w-12 bg-learn-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <Check className="h-6 w-6 text-learn-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Expert Instructors</h3>
-              <p className="text-gray-600">
-                Learn from industry professionals with real-world experience.
-              </p>
-            </div>
-            
-            <div className="bg-gray-50 p-6 rounded-lg shadow-sm">
-              <div className="h-12 w-12 bg-learn-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <Check className="h-6 w-6 text-learn-primary" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Interactive Content</h3>
-              <p className="text-gray-600">
-                Engage with multimedia lessons, quizzes, and discussions.
-              </p>
+
+            <div>
+              <h2 className="text-3xl font-bold mb-12">Try Our AI Study Assistant</h2>
+              <StudyBotChat />
             </div>
           </div>
         </div>
