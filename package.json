@@ -5,6 +5,7 @@
     "docx-parser": "^0.2.1",
     "marked": "^15.0.11",
     "pdfjs-dist": "^5.2.133",
+    "process": "^0.11.10",
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
