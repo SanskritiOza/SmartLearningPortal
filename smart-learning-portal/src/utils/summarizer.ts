@@ -1,4 +1,3 @@
-// filepath: c:\Users\Ms.Sanskriti\SmartLearningPortal\smart-learning-portal\src\utils\summarizer.ts
 import { pipeline } from "@huggingface/transformers";
 
 // Initialize summarization pipeline

@@ -4,29 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
-import { summarizeText } from "@/utils/summarizer";
-
-const extractTextFromFile = async (file: File): Promise<string> => {
-  if (file.type === "text/plain") {
-    return await file.text();
-  } else if (file.type === "application/pdf") {
-    const pdfjsLib = await import("pdfjs-dist");
-    const pdf = await pdfjsLib.getDocument(await file.arrayBuffer()).promise;
-    let text = "";
-    for (let i = 0; i < pdf.numPages; i++) {
-      const page = await pdf.getPage(i + 1);
-      const content = await page.getTextContent();
-      text += content.items.map((item: any) => item.str).join(" ");
-    }
-    return text;
-  } else if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-    const docx = await import("docx-parser");
-    const parsedDoc = await docx.parse(file);
-    return parsedDoc.text;
-  } else {
-    throw new Error("Unsupported file type.");
-  }
-};
 
 export const DocumentSummarizer = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -56,10 +33,23 @@ export const DocumentSummarizer = () => {
     setError(null);
 
     try {
-      const text = await extractTextFromFile(file); // Function to extract text from the file
-      const summary = await summarizeText(text);
-      setSummary(summary);
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("http://127.0.0.1:5000/summarize", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Failed to summarize document: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setSummary(data.summary);
     } catch (error) {
+      console.error("Error:", error);
       const errorMessage =
         error instanceof Error ? error.message : "An error occurred while summarizing the document.";
       setError(errorMessage);
