@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getMockEnrolledCourses } from "@/services/mockData";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
@@ -7,10 +6,19 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { Book, FileText } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { StudyBotChat } from "@/components/chat/StudyBotChat";
+import { DocumentSummarizer } from "@/components/chat/DocumentSummarizer";
 
 export const StudentDashboard = () => {
+  const { user } = useAuth();
   const [enrolledCourses, setEnrolledCourses] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [announcement] = useState("Welcome to SmartLearn! Check out the new features on your dashboard.");
+  const [showChat, setShowChat] = useState(false);
+  const [showSummarizer, setShowSummarizer] = useState(false);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const summarizerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchEnrolledCourses = async () => {
@@ -64,6 +72,47 @@ export const StudentDashboard = () => {
 
   return (
     <div className="space-y-8">
+      {announcement && (
+        <div className="bg-blue-100 text-blue-800 text-center py-2 text-sm font-medium">
+          {announcement}
+        </div>
+      )}
+      {/* Exclusive Features for Students */}
+      {user?.role === "student" && (
+        <div className="flex flex-col md:flex-row gap-6 mb-8">
+          <div className="flex-1 bg-gradient-to-br from-blue-100 to-blue-50 border border-blue-200 rounded-lg p-6 shadow">
+            <h3 className="text-lg font-bold mb-2 text-learn-primary">AI Chatbot</h3>
+            <p className="text-gray-700 mb-3">Get instant help and answers to your study questions with our exclusive AI-powered chatbot.</p>
+            <Button variant="secondary" onClick={() => setShowChat(true)}>
+              Try StudyBot Chat
+            </Button>
+          </div>
+          <div className="flex-1 bg-gradient-to-br from-yellow-100 to-yellow-50 border border-yellow-200 rounded-lg p-6 shadow">
+            <h3 className="text-lg font-bold mb-2 text-yellow-700">Document Summarizer</h3>
+            <p className="text-gray-700 mb-3">Summarize your study materials and notes quickly using our smart document summarizer.</p>
+            <Button variant="secondary" onClick={() => setShowSummarizer(true)}>
+              Try Document Summarizer
+            </Button>
+          </div>
+          {/* Popups for Chatbot and Summarizer */}
+          {showChat && (
+            <div ref={chatRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+              <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+                <button className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl" onClick={() => setShowChat(false)}>&times;</button>
+                <StudyBotChat />
+              </div>
+            </div>
+          )}
+          {showSummarizer && (
+            <div ref={summarizerRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+              <div className="bg-white rounded-lg shadow-lg w-full max-w-2xl relative">
+                <button className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl" onClick={() => setShowSummarizer(false)}>&times;</button>
+                <DocumentSummarizer />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
       <div>
         <h2 className="text-2xl font-semibold mb-6">My Learning</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

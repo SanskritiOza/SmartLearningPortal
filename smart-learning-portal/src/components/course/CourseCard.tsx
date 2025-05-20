@@ -1,15 +1,21 @@
-
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Course } from "@/types/course";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
+import { useState } from "react";
 
 interface CourseCardProps {
   course: Course;
 }
 
 export const CourseCard = ({ course }: CourseCardProps) => {
+  // Example tags/categories for demonstration
+  const tags = (course as any).tags || ["General"];
+
+  // Add a simple bookmark state for demonstration
+  const [bookmarked, setBookmarked] = useState(false);
+
   return (
     <Card className="course-card overflow-hidden flex flex-col h-full hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
       <div className="relative">
@@ -30,6 +36,11 @@ export const CourseCard = ({ course }: CourseCardProps) => {
             {course.title}
           </h3>
         </Link>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {tags.map((tag) => (
+            <span key={tag} className="bg-blue-100 text-blue-800 text-xs px-2 py-0.5 rounded-full">{tag}</span>
+          ))}
+        </div>
         <p className="text-sm text-gray-600 mt-1">
           {course.instructor.name}
         </p>
@@ -45,8 +56,17 @@ export const CourseCard = ({ course }: CourseCardProps) => {
           </div>
           <span className="text-xs text-gray-500 ml-1">({course.reviewCount})</span>
         </div>
-        <div className="text-xs text-gray-500">
-          {course.enrolledCount.toLocaleString()} students
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setBookmarked((b) => !b)}
+            className={`text-xs px-2 py-1 rounded-full border transition-colors ${bookmarked ? 'bg-yellow-100 text-yellow-800 border-yellow-300' : 'bg-gray-100 text-gray-500 border-gray-200 hover:bg-yellow-50'}`}
+            title={bookmarked ? 'Remove Bookmark' : 'Bookmark Course'}
+          >
+            {bookmarked ? 'Bookmarked' : 'Bookmark'}
+          </button>
+          <div className="text-xs text-gray-500">
+            {course.enrolledCount.toLocaleString()} students
+          </div>
         </div>
       </CardFooter>
     </Card>

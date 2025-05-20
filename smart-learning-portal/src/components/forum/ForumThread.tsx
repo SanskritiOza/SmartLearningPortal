@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -10,6 +9,7 @@ import { ForumPost } from "@/types/course";
 import { MessageSquare, ThumbsUp, Flag, Bookmark, Pin, Reply, Check, File, Paperclip } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/components/ui/use-toast";
+import { UserBadge } from "@/components/ui/UserBadge";
 
 interface ForumThreadProps {
   threadId: string;
@@ -106,11 +106,9 @@ export const ForumThread = ({
             </Avatar>
             <div className="flex-1">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center">
-                  <span className="font-medium">{author.name}</span>
-                  <Badge variant="outline" className="ml-2 capitalize">
-                    {author.role}
-                  </Badge>
+                <div className="flex items-center gap-2">
+                  <span className="font-semibold">{author.name}</span>
+                  <UserBadge role={author.role} />
                 </div>
                 <span className="text-sm text-muted-foreground mt-1 sm:mt-0">
                   {formatDate(createdAt)}

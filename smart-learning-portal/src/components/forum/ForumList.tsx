@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -6,6 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { PlusCircle, MessageSquare, Pin } from "lucide-react";
 import { ForumThread } from "@/types/course";
+import { UserBadge } from "@/components/ui/UserBadge";
 
 interface ForumListProps {
   threads: ForumThread[];
@@ -75,11 +75,9 @@ export const ForumList = ({ threads, courseId }: ForumListProps) => {
                       )}
                     </div>
                     <div className="flex items-center mt-1 text-sm text-muted-foreground space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <span>By {thread.author.name}</span>
-                        <Badge variant="outline" className="h-5 px-1.5 text-xs capitalize">
-                          {thread.author.role}
-                        </Badge>
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold">{thread.author.name}</span>
+                        <UserBadge role={thread.author.role} />
                       </div>
                       <span>•</span>
                       <span>
