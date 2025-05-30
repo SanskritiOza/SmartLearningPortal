@@ -5,8 +5,9 @@ from transformers import pipeline
 import PyPDF2
 import docx
 
-# Initialize summarization pipeline
+# Initialize summarization and QA pipelines
 summarizer = pipeline("summarization", framework="pt")
+qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
 
 def summarize_text(text):
     try:
@@ -52,6 +53,23 @@ def summarize():
 
     summary = summarize_text(text)
     return jsonify({"summary": summary})
+
+@app.route('/ask', methods=['POST'])
+def ask():
+    data = request.get_json()
+    summary = data.get('summary')
+    question = data.get('question')
+    if not summary or not question:
+        return jsonify({"error": "Missing summary or question"}), 400
+
+    # Truncate summary to 500 words (or fewer tokens)
+    summary_short = ' '.join(summary.split()[:500])
+
+    try:
+        answer = qa_pipeline({'context': summary_short, 'question': question})
+        return jsonify({"answer": answer['answer']})
+    except Exception as e:
+        return jsonify({"error": f"An error occurred during Q&A: {str(e)}"}), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

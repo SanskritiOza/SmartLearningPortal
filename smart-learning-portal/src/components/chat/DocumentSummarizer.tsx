@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertTriangle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import DocumentQnA from "./DocumentQnA";
 
 export const DocumentSummarizer = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -97,6 +98,7 @@ export const DocumentSummarizer = () => {
           <div className="mt-6">
             <h3 className="text-lg font-semibold mb-2">Summary:</h3>
             <p className="text-gray-700 whitespace-pre-wrap">{summary}</p>
+            <DocumentQnA summary={summary} />
           </div>
         )}
       </CardContent>

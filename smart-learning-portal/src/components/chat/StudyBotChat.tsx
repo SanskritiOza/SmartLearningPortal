@@ -7,21 +7,22 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Bot, MessageCircle, AlertTriangle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import DocumentQnA from "./DocumentQnA";
 
 interface ChatMessage {
   role: "assistant" | "user";
   content: string;
 }
 
-
-
-export const StudyBotChat = () => {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      role: "assistant",
-      content: "Hi! I'm your study assistant powered by Generative AI. How can I help you today?",
-    },
-  ]);
+export const StudyBotChat = ({ summary }: { summary?: string }) => {
+  const [messages, setMessages] = useState<ChatMessage[]>(
+    [
+      {
+        role: "assistant",
+        content: "Hi! I'm your study assistant powered by Generative AI. How can I help you today?",
+      },
+    ]
+  );
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -115,6 +116,8 @@ export const StudyBotChat = () => {
             </Button>
           </div>
         </form>
+        {/* QnA about summary if summary is provided */}
+        {summary && <DocumentQnA summary={summary} />}
       </CardContent>
     </Card>
   );
