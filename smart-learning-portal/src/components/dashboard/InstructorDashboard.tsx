@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { getMockInstructorCourses } from "@/services/mockData";
 import { Course } from "@/types/course";
@@ -7,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { PlusCircle, BookOpen, Settings, Edit } from "lucide-react";
+import { DocumentSummarizer } from "@/components/chat/DocumentSummarizer";
 
 export const InstructorDashboard = () => {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -194,6 +194,14 @@ export const InstructorDashboard = () => {
               </p>
             </CardContent>
           </Card>
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-6 mb-8">
+        <div className="flex-1 bg-gradient-to-br from-yellow-100 to-yellow-50 border border-yellow-200 rounded-lg p-6 shadow">
+          <h3 className="text-lg font-bold mb-2 text-yellow-700">Document Summarizer</h3>
+          <p className="text-gray-700 mb-3">Summarize your teaching materials, notes, or resources quickly using our smart document summarizer.</p>
+          <DocumentSummarizer />
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ export const mockCourses: Course[] = [
     thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
     instructor: {
       id: "2",
-      name: "Taylor Teacher"
+      name: "Instructor Name"
     },
     rating: 4.7,
     reviewCount: 124,
@@ -340,7 +340,7 @@ export const getMockUsers = (): Promise<any[]> => {
       resolve([
         {
           id: "1",
-          name: "Alex Student",
+          name: "Student Name",
           email: "student@example.com",
           role: "student",
           joinDate: "2023-05-15T00:00:00Z",
@@ -348,7 +348,7 @@ export const getMockUsers = (): Promise<any[]> => {
         },
         {
           id: "2",
-          name: "Taylor Teacher",
+          name: "Instructor Name",
           email: "instructor@example.com",
           role: "instructor",
           joinDate: "2023-03-10T00:00:00Z",
@@ -356,7 +356,7 @@ export const getMockUsers = (): Promise<any[]> => {
         },
         {
           id: "3",
-          name: "Sam Admin",
+          name: "Admin",
           email: "admin@example.com",
           role: "admin",
           joinDate: "2023-01-05T00:00:00Z",

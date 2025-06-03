@@ -1,14 +1,17 @@
 # Flask app for API
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 import PyPDF2
 import docx
+import time
 
 # Initialize summarization and QA pipelines
 summarizer = pipeline("summarization", framework="pt")
+tokenizer = AutoTokenizer.from_pretrained("sshleifer/distilbart-cnn-12-6")
 qa_pipeline = pipeline("question-answering", model="distilbert-base-cased-distilled-squad")
 
+# Updated summarize_text: use global tokenizer, chunk by string not token ids, and limit chunk size for speed
 def summarize_text(text):
     try:
         from transformers import AutoTokenizer

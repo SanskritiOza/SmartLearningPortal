@@ -90,8 +90,18 @@ export const StudentDashboard = () => {
           <div className="flex-1 bg-gradient-to-br from-yellow-100 to-yellow-50 border border-yellow-200 rounded-lg p-6 shadow">
             <h3 className="text-lg font-bold mb-2 text-yellow-700">Document Summarizer</h3>
             <p className="text-gray-700 mb-3">Summarize your study materials and notes quickly using our smart document summarizer.</p>
-            <Button variant="secondary" onClick={() => setShowSummarizer(true)}>
-              Try Document Summarizer
+            <Button variant="secondary" asChild>
+              <a
+                href="/ai-tools"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={e => {
+                  // Optionally, sync auth/session to localStorage/sessionStorage if needed
+                  // (most modern apps already persist auth tokens in localStorage/sessionStorage)
+                }}
+              >
+                Try Document Summarizer
+              </a>
             </Button>
           </div>
           {/* Popups for Chatbot and Summarizer */}

@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { User, UserRole, AuthState } from "@/types/user";
@@ -45,6 +44,7 @@ interface AuthContextType extends AuthState {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  // Ensure no user is logged in on first run (fresh localStorage)
   const [authState, setAuthState] = useState<AuthState>({
     user: null,
     isAuthenticated: false,
@@ -62,6 +62,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         isLoading: false,
       });
     } else {
+      // Explicitly clear any legacy user data
+      localStorage.removeItem("user");
       setAuthState((prev) => ({ ...prev, isLoading: false }));
     }
   }, []);

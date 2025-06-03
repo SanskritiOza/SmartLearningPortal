@@ -99,9 +99,6 @@ export const Navbar = () => {
                     <p className="text-xs leading-none text-muted-foreground dark:text-gray-400">
                       {user?.email}
                     </p>
-                    <p className="text-xs leading-none text-muted-foreground mt-1 capitalize dark:text-gray-400">
-                      {user?.role}
-                    </p>
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="dark:bg-gray-700" />
