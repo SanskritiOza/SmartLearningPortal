@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { UserBadge } from "@/components/ui/UserBadge";
 
 const ProfilePage = () => {
   const { user } = useAuth();
@@ -29,8 +28,8 @@ const ProfilePage = () => {
             <div className="text-lg font-semibold">{user.name}</div>
             <div className="text-gray-500">{user.email}</div>
             <div className="capitalize text-sm text-gray-400 flex items-center gap-2">
-              {user.role}
-              <UserBadge role={user.role} />
+              {/* Only show one user role, formatted nicely */}
+              {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
             </div>
           </div>
         </CardContent>
